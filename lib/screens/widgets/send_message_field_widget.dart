@@ -29,6 +29,12 @@ class _SendMessageFieldWidgetState extends State<SendMessageFieldWidget> {
       height: 80,
       width: double.infinity,
       child: Row(children: [
+        IconButton(
+            onPressed: () => BlocProvider.of<ChatBloc>(context).add(
+                SendGeolocationMessage(
+                    nickname: widget._nickname,
+                    message: widget._messageController.text)),
+            icon: const Icon(Icons.share_location_outlined)),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 8.0),
