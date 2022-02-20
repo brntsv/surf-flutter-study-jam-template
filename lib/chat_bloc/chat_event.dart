@@ -16,8 +16,10 @@ class GetAllMessages extends ChatEvent{
 }
 
 class SendMessage extends ChatEvent{
-  const SendMessage();
+  final String nickname;
+  final String message;
+  const SendMessage({required this.nickname, required this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [nickname, message];
 }

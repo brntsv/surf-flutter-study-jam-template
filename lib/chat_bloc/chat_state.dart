@@ -14,12 +14,12 @@ class InitialChatState extends ChatState {}
 class LoadingChatState extends ChatState {}
 
 class LoadedChatState extends ChatState {
-  final List<ChatMessageDto> messageList;
+  final List<ChatMessageDto> messagesList;
 
-  const LoadedChatState(this.messageList);
+  const LoadedChatState(this.messagesList);
 
   @override
-  List<Object> get props => [messageList];
+  List<Object> get props => [messagesList];
 }
 
 class ErrorChatState extends ChatState {

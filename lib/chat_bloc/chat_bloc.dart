@@ -18,5 +18,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         emit(const ErrorChatState(message: 'You have error'));
       }
     });
+    on<SendMessage>((event, emit) async {
+      try {
+       // emit(LoadingChatState());
+        List<ChatMessageDto> _messageList = await _chatRepositoryFirebase
+            .sendMessage(event.nickname, event.message);
+        emit(LoadedChatState(_messageList));
+      } catch (_) {
+        emit(const ErrorChatState(message: 'You have error'));
+      }
+    });
   }
 }

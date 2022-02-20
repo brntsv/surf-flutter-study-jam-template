@@ -5,6 +5,7 @@ import 'package:surf_practice_chat_flutter/chat_bloc/chat_event.dart';
 import 'package:surf_practice_chat_flutter/chat_bloc/chat_state.dart';
 
 import 'package:surf_practice_chat_flutter/data/chat/repository/repository.dart';
+import 'package:surf_practice_chat_flutter/screens/widgets/messages_list.dart';
 
 import '../chat_bloc/chat_bloc.dart';
 import '../data/chat/repository/firebase.dart';
@@ -23,12 +24,21 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  TextEditingController? _nickController;
+  late TextEditingController _nickController;
+  late TextEditingController _messageController;
 
   @override
   void initState() {
     super.initState();
     _nickController = TextEditingController();
+    _messageController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nickController.dispose();
+    _messageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,13 +52,11 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
-            title: Expanded(
-              child: TextField(
-                controller: _nickController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                    hintText: 'Введите ник', border: InputBorder.none),
-              ),
+            title: TextField(
+              controller: _nickController,
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  hintText: 'Введите ник', border: InputBorder.none),
             ),
             actions: [
               IconButton(
@@ -63,18 +71,46 @@ class _ChatScreenState extends State<ChatScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
               if (state is LoadedChatState) {
-                return ListView.builder(
-                    itemCount: state.messageList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.deepPurple,
-                          child: Text(state.messageList[index].author.name[0]),
+                return Column(
+                  children: [
+                    Expanded(
+                        child: MessagesList(messagesList: state.messagesList, nickname: _nickController.text,)),
+                    SizedBox(
+                      height: 80,
+                      width: double.infinity,
+                      child: Row(children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: TextField(
+                              controller: _messageController,
+                              decoration: const InputDecoration(
+                                  hintText: 'Сообщение',
+                                  hintStyle: TextStyle(color: Colors.grey)),
+                            ),
+                          ),
                         ),
-                        title: Text(state.messageList[index].author.name),
-                        subtitle: Text(state.messageList[index].message),
-                      );
-                    });
+                        IconButton(
+                          onPressed: () {
+                            if (_nickController.text.isNotEmpty &&
+                                _messageController.text.isNotEmpty) {
+                              context.read<ChatBloc>().add(SendMessage(
+                                  nickname: _nickController.text,
+                                  message: _messageController.text));
+                              _messageController.clear();
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Вы ввели не все данные'),
+                              ));
+                            }
+                          },
+                          icon: const Icon(Icons.send),
+                        )
+                      ]),
+                    )
+                  ],
+                );
               }
               return const SizedBox();
             },
