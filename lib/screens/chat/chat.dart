@@ -41,7 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
           MessageBubble(
             author: message.author.name,
             text: message.toString(),
-            isMe: message.author.name == 'SuperSasha',
+            isMe: message.author.name == 'Don Kek',
           ),
         );
       } else {
@@ -49,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
           MessageBubble(
             author: message.author.name,
             text: message.message,
-            isMe: message.author.name == 'SuperSasha',
+            isMe: message.author.name == 'Don Kek',
           ),
         );
       }
@@ -64,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
       showSpinner = true;
     });
     try {
-      await widget.chatRepository.sendMessage('SuperSasha', messageText);
+      await widget.chatRepository.sendMessage('Don Kek', messageText);
     } catch (e) {
       print(e);
     }
@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     try {
       await widget.chatRepository.sendGeolocationMessage(
-        nickname: 'SuperSasha',
+        nickname: 'Don Kek',
         location: geo,
       );
       // https://www.google.ru/maps/@${location.latitude},${location.longitude}
