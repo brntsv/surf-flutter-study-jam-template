@@ -65,131 +65,136 @@ class _ChatScreenState extends State<ChatScreen> {
     final model = context.read<ChatModel>();
     final height = context.height;
 
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: AppColors.backGradient,
-      ),
-      child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Stack(
-            children: [
-              Positioned(
-                left: 0,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 5),
-                  width: 20,
-                  height: height,
-                  child: const RunningText(
-                    text: Constants.runningText,
-                    scrollAxis: Axis.vertical,
-                    textStyle: TxtStyle.runningLine,
+    return GestureDetector(
+      onTap: (() => FocusScope.of(context).unfocus()),
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.backGradient,
+        ),
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 5),
+                    width: 20,
+                    height: height,
+                    child: const RunningText(
+                      text: Constants.runningText,
+                      scrollAxis: Axis.vertical,
+                      textStyle: TxtStyle.runningLine,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                right: 0,
-                child: Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  width: 20,
-                  height: height,
-                  child: const RunningText(
-                    scrollAxis: Axis.vertical,
-                    text: Constants.runningText,
-                    textStyle: TxtStyle.runningLine,
+                Positioned(
+                  right: 0,
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    width: 20,
+                    height: height,
+                    child: const RunningText(
+                      scrollAxis: Axis.vertical,
+                      text: Constants.runningText,
+                      textStyle: TxtStyle.runningLine,
+                    ),
                   ),
                 ),
-              ),
-              SafeArea(
-                  child: Center(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      const HeaderBar(text: 'xxxxxxx'),
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: username.isNotEmpty
-                                ? Text(
-                                    username,
-                                    style: TxtStyle.content14Red
-                                        .copyWith(fontSize: 25),
-                                  )
-                                : TextField(
-                                    controller: provider.nameTextController,
-                                    onEditingComplete: () {
-                                      final name =
-                                          model.nameTextController.value.text;
-                                      if (name.isNotEmpty) {
-                                        setState(() => username = name);
-                                      }
-                                    },
-                                    keyboardType: TextInputType.name,
-                                    decoration: const InputDecoration(
-                                        hintText: 'ВВЕДИТЕ НИК',
-                                        hintStyle: TxtStyle.blender20Blue),
-                                  ),
-                          ),
-                          IconButton(
-                            onPressed: () => model.getMessages(),
-                            icon: const Icon(
-                              Icons.refresh,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                      provider.isMessagesLoading
-                          ? const Expanded(
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColors.msgBrdOrange,
-                                ),
-                              ),
-                            )
-                          : provider.messages == null
-                              ? Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      provider.errorMessage ?? 'ОШИБКА СЕРВЕРА',
-                                      style: TxtStyle.content32Blue,
-                                    ),
-                                  ),
-                                )
-                              : Expanded(
-                                  child: ListView.separated(
-                                      shrinkWrap: true,
-                                      reverse: true,
-                                      itemBuilder: (context, i) {
-                                        final item = provider.messages?[i];
-                                        return ChatCard(
-                                          isMe:
-                                              item?.author.name.toLowerCase() ==
-                                                  username.toLowerCase(),
-                                          onTap: () {},
-                                          name: item?.author.name,
-                                          message: item?.message,
-                                        );
+                SafeArea(
+                    child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Column(
+                      children: [
+                        const HeaderBar(text: 'xxxxxxx'),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: username.isNotEmpty
+                                  ? Text(
+                                      username,
+                                      style: TxtStyle.content14Red
+                                          .copyWith(fontSize: 25),
+                                    )
+                                  : TextField(
+                                      controller: provider.nameTextController,
+                                      onEditingComplete: () {
+                                        final name =
+                                            model.nameTextController.value.text;
+                                        if (name.isNotEmpty) {
+                                          setState(() => username = name);
+                                        }
                                       },
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 20),
-                                      itemCount: provider.messages!.length)),
-                      const SizedBox(height: 10),
-                      FieldWithButton(
-                        controller: provider.messageTextController,
-                        messageInProgress: provider.isMessageSending,
-                        onIconTap: () async {
-                          await model.sendMessage();
-                        },
-                        icon: Icons.send,
-                      )
-                    ],
+                                      keyboardType: TextInputType.name,
+                                      decoration: const InputDecoration(
+                                          hintText: 'ВВЕДИТЕ НИК',
+                                          hintStyle: TxtStyle.blender20Blue),
+                                    ),
+                            ),
+                            IconButton(
+                              onPressed: () => model.getMessages(),
+                              icon: const Icon(
+                                Icons.refresh,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                        provider.isMessagesLoading
+                            ? const Expanded(
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.msgBrdOrange,
+                                  ),
+                                ),
+                              )
+                            : provider.messages == null
+                                ? Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        provider.errorMessage ??
+                                            'ОШИБКА СЕРВЕРА',
+                                        style: TxtStyle.content32Blue,
+                                      ),
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: ListView.separated(
+                                        shrinkWrap: true,
+                                        reverse: true,
+                                        physics: const BouncingScrollPhysics(),
+                                        itemBuilder: (context, i) {
+                                          final item = provider.messages?[i];
+                                          return ChatCard(
+                                            isMe: item?.author.name
+                                                    .toLowerCase() ==
+                                                username.toLowerCase(),
+                                            onTap: () {},
+                                            name: item?.author.name,
+                                            message: item?.message,
+                                          );
+                                        },
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(height: 20),
+                                        itemCount: provider.messages!.length)),
+                        const SizedBox(height: 10),
+                        FieldWithButton(
+                          controller: provider.messageTextController,
+                          messageInProgress: provider.isMessageSending,
+                          onIconTap: () async {
+                            await model.sendMessage();
+                          },
+                          icon: Icons.send,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ))
-            ],
-          )),
+                ))
+              ],
+            )),
+      ),
     );
   }
 }
