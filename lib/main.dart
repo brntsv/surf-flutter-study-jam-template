@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:surf_practice_chat_flutter/data/chat/repository/firebase.dart';
 import 'package:surf_practice_chat_flutter/firebase_options.dart';
+import 'package:surf_practice_chat_flutter/theme/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/model/chat_model.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat.dart';
-import 'package:surf_practice_chat_flutter/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

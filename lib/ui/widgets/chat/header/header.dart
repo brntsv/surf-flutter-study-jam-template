@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:surf_practice_chat_flutter/theme.dart';
+import 'package:surf_practice_chat_flutter/theme/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/header/line.dart';
 
 class HeaderBar extends StatefulWidget {
@@ -12,7 +11,6 @@ class HeaderBar extends StatefulWidget {
 }
 
 class _HeaderBarState extends State<HeaderBar> {
-  // late Timer _timer;
   @override
   void initState() {
     super.initState();

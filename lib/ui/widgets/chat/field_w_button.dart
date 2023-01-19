@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:surf_practice_chat_flutter/theme.dart';
+import 'package:surf_practice_chat_flutter/theme/theme.dart';
 
 class FieldWithButton extends StatelessWidget {
   const FieldWithButton(

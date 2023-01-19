@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:surf_practice_chat_flutter/theme.dart';
+import 'package:surf_practice_chat_flutter/theme/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/model/chat_model.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/chat_card.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/field_w_button.dart';
@@ -30,9 +30,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void didChangeDependencies() {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   context.read<ChatModel>().getMessages();
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // setState(() {
+      //   context.read<ChatModel>().getMessages();
+      // });
+    });
     super.didChangeDependencies();
   }
 
@@ -185,6 +187,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           messageInProgress: provider.isMessageSending,
                           onIconTap: () async {
                             await model.sendMessage();
+                            model.getMessages();
                           },
                           icon: Icons.send,
                         )
