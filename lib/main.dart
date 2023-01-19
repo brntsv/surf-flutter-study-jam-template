@@ -6,6 +6,7 @@ import 'package:surf_practice_chat_flutter/data/chat/repository/firebase.dart';
 import 'package:surf_practice_chat_flutter/firebase_options.dart';
 import 'package:surf_practice_chat_flutter/ui/model/chat_model.dart';
 import 'package:surf_practice_chat_flutter/ui/screens/chat.dart';
+import 'package:surf_practice_chat_flutter/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,16 +30,13 @@ class MyApp extends StatelessWidget {
     final chatRepository = ChatRepositoryFirebase(FirebaseFirestore.instance);
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          colorSchemeSeed: Colors.deepPurple,
-          useMaterial3: true,
-          hintColor: Colors.deepPurple.shade200),
-      home: ListenableProxyProvider(
+        debugShowCheckedModeBanner: false,
+        theme: themeData,
+        home: ListenableProxyProvider(
           update: (context, value, previous) {
             return ChatModel(chatRepository: chatRepository);
           },
-          child: const ChatScreen()),
-    );
+          child: const ChatScreen(),
+        ));
   }
 }

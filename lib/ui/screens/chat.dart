@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
-import 'package:surf_practice_chat_flutter/services/location.dart';
 import 'package:surf_practice_chat_flutter/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/model/chat_model.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/chat_card.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/field_w_button.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/header/header.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/running_text.dart';
-import 'package:surf_practice_chat_flutter/ui/widgets/chat/username_field.dart';
 import 'package:surf_practice_chat_flutter/utils.dart';
 
 /// Chat screen templete. This is your starting point.
@@ -26,12 +22,18 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    // ????????????
-    // messages = widget.chatRepository.messages;
-    // ????????????
-    // final provider = context.read<ChatModel>();
-    // provider.getMessages();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ChatModel>().getMessages();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   context.read<ChatModel>().getMessages();
+    // });
+    super.didChangeDependencies();
   }
 
   // Future<dynamic> getLocation() async {
@@ -105,7 +107,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: [
                       const HeaderBar(text: 'xxxxxxx'),
                       const SizedBox(height: 5),
-                      // const UsernameField(),
                       Row(
                         children: [
                           Expanded(

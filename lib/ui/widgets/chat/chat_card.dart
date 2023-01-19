@@ -21,9 +21,8 @@ class ChatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final children = [
       CircleAvatar(
-        backgroundColor: isMe
-            ? const Color.fromARGB(255, 194, 137, 14)
-            : AppColors.backGradientBegin,
+        backgroundColor:
+            isMe ? const Color(0xFFC2890E) : AppColors.backGradientBegin,
         child: Text(
           name?[0].toUpperCase() ?? 'U',
           style: TxtStyle.content14Red.copyWith(color: AppColors.textBlue),
@@ -38,9 +37,7 @@ class ChatCard extends StatelessWidget {
           decoration: BoxDecoration(
               color: isMe ? Colors.transparent : AppColors.backGradientBegin,
               border: Border.all(
-                  color: isMe
-                      ? const Color.fromARGB(255, 245, 187, 28)
-                      : AppColors.textRed)),
+                  color: isMe ? const Color(0xFFF5BB1C) : AppColors.textRed)),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Column(
             mainAxisSize: MainAxisSize.min,

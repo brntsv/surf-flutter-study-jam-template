@@ -20,7 +20,7 @@ abstract class AppColors {
   static const backGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomCenter,
-    stops: [0, .5, 1.0],
+    stops: [0, 0.5, 1.0],
     colors: [
       AppColors.backGradientBegin,
       AppColors.backGradientCenter,
@@ -59,3 +59,29 @@ abstract class TxtStyle {
   static const content20Orange = TextStyle(
       fontSize: 20.0, fontFamily: 'play', color: AppColors.textYellow);
 }
+
+final themeData = ThemeData(
+  inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+      filled: true,
+      fillColor: AppColors.msgBackBlue,
+      focusedBorder: const UnderlineInputBorder(borderSide: BorderSide.none),
+      errorStyle: TxtStyle.content20Blue.copyWith(color: AppColors.textRed),
+      enabledBorder: const UnderlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(color: Colors.transparent),
+      ),
+      focusedErrorBorder: const UnderlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(color: AppColors.textRed),
+      ),
+      border: const UnderlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(color: Colors.transparent),
+      ),
+      errorBorder: const UnderlineInputBorder(
+        borderRadius: BorderRadius.zero,
+        borderSide: BorderSide(color: AppColors.textRed),
+      ),
+      labelStyle: TxtStyle.content24Blue),
+);
