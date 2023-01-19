@@ -37,7 +37,8 @@ class ChatCard extends StatelessWidget {
           decoration: BoxDecoration(
               color: isMe ? Colors.transparent : AppColors.backGradientBegin,
               border: Border.all(
-                  color: isMe ? const Color(0xFFF5BB1C) : AppColors.textRed)),
+                  color: isMe ? const Color(0xFFF5BB1C) : AppColors.textRed),
+              borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
