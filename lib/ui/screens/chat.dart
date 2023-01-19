@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:surf_practice_chat_flutter/data/chat/chat.dart';
-// import 'package:modal_progress_hud_alt/modal_progress_hud_alt.dart';
 import 'package:surf_practice_chat_flutter/services/location.dart';
 import 'package:surf_practice_chat_flutter/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/model/chat_model.dart';
+import 'package:surf_practice_chat_flutter/ui/widgets/chat/chat_card.dart';
+import 'package:surf_practice_chat_flutter/ui/widgets/chat/field_w_button.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/header/header.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/running_text.dart';
+import 'package:surf_practice_chat_flutter/ui/widgets/chat/username_field.dart';
 import 'package:surf_practice_chat_flutter/utils.dart';
 
 /// Chat screen templete. This is your starting point.
@@ -56,6 +59,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<ChatModel>();
+    final model = context.read<ChatModel>();
     final height = context.height;
 
     return Container(
@@ -97,7 +102,88 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
-                    children: const [HeaderBar(text: 'MESSAGES')],
+                    children: [
+                      const HeaderBar(text: 'xxxxxxx'),
+                      const SizedBox(height: 5),
+                      // const UsernameField(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: username.isNotEmpty
+                                ? Text(
+                                    username,
+                                    style: TxtStyle.content14Red
+                                        .copyWith(fontSize: 25),
+                                  )
+                                : TextField(
+                                    controller: provider.nameTextController,
+                                    onEditingComplete: () {
+                                      final name =
+                                          model.nameTextController.value.text;
+                                      if (name.isNotEmpty) {
+                                        setState(() => username = name);
+                                      }
+                                    },
+                                    keyboardType: TextInputType.name,
+                                    decoration: const InputDecoration(
+                                        hintText: 'ВВЕДИТЕ НИК',
+                                        hintStyle: TxtStyle.blender20Blue),
+                                  ),
+                          ),
+                          IconButton(
+                            onPressed: () => model.getMessages(),
+                            icon: const Icon(
+                              Icons.refresh,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                      provider.isMessagesLoading
+                          ? const Expanded(
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.msgBrdOrange,
+                                ),
+                              ),
+                            )
+                          : provider.messages == null
+                              ? Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      provider.errorMessage ?? 'ОШИБКА СЕРВЕРА',
+                                      style: TxtStyle.content32Blue,
+                                    ),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: ListView.separated(
+                                      shrinkWrap: true,
+                                      reverse: true,
+                                      itemBuilder: (context, i) {
+                                        final item = provider.messages?[i];
+                                        return ChatCard(
+                                          isMe:
+                                              item?.author.name.toLowerCase() ==
+                                                  username.toLowerCase(),
+                                          onTap: () {},
+                                          name: item?.author.name,
+                                          message: item?.message,
+                                        );
+                                      },
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 20),
+                                      itemCount: provider.messages!.length)),
+                      const SizedBox(height: 10),
+                      FieldWithButton(
+                        controller: provider.messageTextController,
+                        messageInProgress: provider.isMessageSending,
+                        onIconTap: () async {
+                          await model.sendMessage();
+                        },
+                        icon: Icons.send,
+                      )
+                    ],
                   ),
                 ),
               ))
@@ -106,61 +192,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-
-// class MessageBubble extends StatelessWidget {
-//   const MessageBubble({
-//     Key? key,
-//     required this.author,
-//     required this.text,
-//     required this.isMe,
-//     this.isGeo = false,
-//   }) : super(key: key);
-
-//   final String author;
-//   final String text;
-//   final bool isMe;
-//   final bool isGeo;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 0.5),
-//       child: Row(
-//         children: [
-//           Chip(
-//             label: Text(author, style: const TextStyle(fontSize: 14)),
-//             backgroundColor: Colors.white,
-//             side: const BorderSide(width: 1.0, color: Color(0xFFD0EDF2)),
-//             avatar: CircleAvatar(
-//               backgroundColor: Color(
-//                       (author.hashCode.toInt() / 1000000000 * 0xFFFFFF).toInt())
-//                   .withOpacity(1.0),
-//               child: Text(
-//                 author.toUpperCase().substring(0, 1),
-//                 style: const TextStyle(color: Colors.white),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(width: 5),
-//           Expanded(
-//             child: Material(
-//               borderRadius: const BorderRadius.only(
-//                 topLeft: Radius.circular(16),
-//                 topRight: Radius.circular(16),
-//                 bottomRight: Radius.circular(16),
-//               ),
-//               color: isMe
-//                   ? const Color(0xFF3E9AAA).withOpacity(0.25)
-//                   : const Color(0xFFC3B47A).withOpacity(0.25),
-//               child: Padding(
-//                 padding:
-//                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//                 child: Text(text, style: const TextStyle(fontSize: 14)),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
