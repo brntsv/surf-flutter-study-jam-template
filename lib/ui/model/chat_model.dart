@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:surf_practice_chat_flutter/data/chat/models/message.dart';
 import 'package:surf_practice_chat_flutter/data/chat/repository/repository.dart';
 
 class ChatModel extends ChangeNotifier {
+  ChatModel({required this.chatRepository});
   // repository
   final ChatRepository chatRepository;
-
-  ChatModel({required this.chatRepository});
 
   // text controllers on screen
   final nameTextController = TextEditingController();
