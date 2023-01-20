@@ -27,9 +27,6 @@ class ChatModel extends ChangeNotifier {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  Stream<List<ChatMessageDto>>? _stream;
-  Stream<List<ChatMessageDto>>? get streamMessages => _stream;
-
   Future<void> sendMessage() async {
     final username = nameTextController.text;
     final message = messageTextController.text;
@@ -70,16 +67,6 @@ class ChatModel extends ChangeNotifier {
       notifyListeners();
     }
     _isMessagesLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> updateChat() async {
-    try {
-      _stream = chatRepository.messages.asStream();
-    } catch (e) {
-      _errorMessage = 'Ошибка сервера при получении сообщений';
-      notifyListeners();
-    }
     notifyListeners();
   }
 }
