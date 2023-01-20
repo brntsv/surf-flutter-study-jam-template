@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surf_practice_chat_flutter/theme/theme.dart';
 
 class Line extends StatefulWidget {
   const Line({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _LineState extends State<Line> with SingleTickerProviderStateMixin {
         painter: LinePainter(
             _progress,
             Paint()
-              ..color = Colors.red
+              ..color = AppColors.red
               ..strokeWidth = 2.0));
   }
 }

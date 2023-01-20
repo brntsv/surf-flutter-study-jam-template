@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     width: 20,
                     height: height,
                     child: const RunningText(
-                      text: Constants.runningText,
+                      text: Constants.runningMantra,
                       scrollAxis: Axis.vertical,
                       textStyle: TxtStyle.runningLine,
                     ),
@@ -109,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     child: Column(
                       children: [
-                        const HeaderBar(text: 'xxxxxxx'),
+                        const HeaderBar(text: 'MESSADGES'),
                         const SizedBox(height: 5),
                         Row(
                           children: [
@@ -139,7 +139,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               onPressed: () => model.getMessages(),
                               icon: const Icon(
                                 Icons.refresh,
-                                color: Colors.red,
+                                color: AppColors.red,
                               ),
                             ),
                           ],
@@ -148,7 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             ? const Expanded(
                                 child: Center(
                                   child: CircularProgressIndicator(
-                                    color: AppColors.msgBrdOrange,
+                                    color: AppColors.red,
                                   ),
                                 ),
                               )

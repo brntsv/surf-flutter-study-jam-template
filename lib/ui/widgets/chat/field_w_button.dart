@@ -34,13 +34,13 @@ class FieldWithButton extends StatelessWidget {
         ),
         messageInProgress
             ? const CircularProgressIndicator(
-                color: Colors.red,
+                color: AppColors.red,
               )
             : IconButton(
                 onPressed: onIconTap,
                 icon: Icon(
                   icon,
-                  color: Colors.red,
+                  color: AppColors.red,
                 ))
       ],
     );

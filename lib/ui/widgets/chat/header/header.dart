@@ -38,7 +38,7 @@ class _HeaderBarState extends State<HeaderBar> {
                 margin: const EdgeInsets.fromLTRB(5, 3, 5, 0),
                 child: Text(
                   widget.text,
-                  style: TxtStyle.blender25Blue,
+                  style: TxtStyle.blender25Yellow,
                 )),
           ),
           const Expanded(child: Line()),

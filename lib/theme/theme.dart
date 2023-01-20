@@ -5,8 +5,8 @@ abstract class AppColors {
   static const backGradientCenter = Color(0xFF110F14);
   static const backGradientEnd = Color(0xFF08151B);
 
-  static const textRed = Colors.red;
-  static const runningTextRed = Color(0xFF4E1E1C);
+  static const red = Color(0xFFFB484B);
+  static const runningTextRed = Color(0xFF551E1D);
   static const textBlue = Color(0xFF54DFE7);
   static const textYellow = Color(0xFFF6EF00);
   static const textWhite = Color(0xFFE4E3E4);
@@ -17,6 +17,7 @@ abstract class AppColors {
 
   static const msgBackBlue = Color(0x6054DFE7);
   static const msgBrdOrange = Color(0xFFCE730A);
+  static const msgBrdYellow = Color(0xFF352C03);
   static const backGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomCenter,
@@ -36,10 +37,12 @@ abstract class TxtStyle {
       TextStyle(fontFamily: 'blender', fontSize: 20, color: AppColors.textBlue);
   static const blender25Blue =
       TextStyle(fontFamily: 'blender', fontSize: 25, color: AppColors.textBlue);
+  static const blender25Yellow = TextStyle(
+      fontFamily: 'blender', fontSize: 25, color: AppColors.textYellow);
 
   ///content Red
   static const content14Red =
-      TextStyle(fontSize: 14.0, fontFamily: 'play', color: AppColors.textRed);
+      TextStyle(fontSize: 14.0, fontFamily: 'play', color: AppColors.red);
 
   ///content Blue
   static const content14Blue =
@@ -66,14 +69,14 @@ final themeData = ThemeData(
       filled: true,
       fillColor: AppColors.msgBackBlue,
       focusedBorder: const UnderlineInputBorder(borderSide: BorderSide.none),
-      errorStyle: TxtStyle.content20Blue.copyWith(color: AppColors.textRed),
+      errorStyle: TxtStyle.content20Blue.copyWith(color: AppColors.red),
       enabledBorder: const UnderlineInputBorder(
         borderRadius: BorderRadius.zero,
         borderSide: BorderSide(color: Colors.transparent),
       ),
       focusedErrorBorder: const UnderlineInputBorder(
         borderRadius: BorderRadius.zero,
-        borderSide: BorderSide(color: AppColors.textRed),
+        borderSide: BorderSide(color: AppColors.red),
       ),
       border: const UnderlineInputBorder(
         borderRadius: BorderRadius.zero,
@@ -81,7 +84,7 @@ final themeData = ThemeData(
       ),
       errorBorder: const UnderlineInputBorder(
         borderRadius: BorderRadius.zero,
-        borderSide: BorderSide(color: AppColors.textRed),
+        borderSide: BorderSide(color: AppColors.red),
       ),
       labelStyle: TxtStyle.content24Blue),
 );
