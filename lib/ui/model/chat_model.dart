@@ -27,6 +27,10 @@ class ChatModel extends ChangeNotifier {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
+  // location of users
+  // ChatMessageGeolocationDto? _location;
+  // ChatMessageGeolocationDto? get location => _location;
+
   Future<void> sendMessage() async {
     final username = nameTextController.text;
     final message = messageTextController.text;
@@ -69,4 +73,17 @@ class ChatModel extends ChangeNotifier {
     _isMessagesLoading = false;
     notifyListeners();
   }
+
+  // Future<void> onLoadGeo() async {
+  //   LocationPermission permission;
+
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //   }
+  //   final loc = await Geolocator.getCurrentPosition();
+  //   final location =
+  //       ChatGeolocationDto(latitude: loc.latitude, longitude: loc.longitude);
+  //   _location = ChatMessageGeolocationDto(location: location);
+  // }
 }

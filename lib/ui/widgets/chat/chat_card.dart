@@ -7,14 +7,14 @@ class ChatCard extends StatelessWidget {
   final String? message;
   final bool isMe;
   final VoidCallback onTap;
-  const ChatCard(
-      {Key? key,
-      this.userAvatar,
-      this.name,
-      this.message,
-      this.isMe = false,
-      required this.onTap})
-      : super(key: key);
+  const ChatCard({
+    Key? key,
+    this.userAvatar,
+    this.name,
+    this.message,
+    this.isMe = false,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,7 @@ class ChatCard extends StatelessWidget {
           style: TxtStyle.content14Red.copyWith(color: AppColors.textBlue),
         ),
       ),
-      const SizedBox(
-        width: 5,
-      ),
+      const SizedBox(width: 5),
       Flexible(
         fit: FlexFit.tight,
         child: Container(
@@ -52,17 +50,38 @@ class ChatCard extends StatelessWidget {
                       isMe ? TxtStyle.content20Orange : TxtStyle.content20Blue,
                 ),
               ),
-              if (message != null)
-                const SizedBox(
-                  height: 5,
-                ),
+              if (message != null) const SizedBox(height: 5),
               if (message != null)
                 Text(
                   message ?? '',
                   textAlign: TextAlign.left,
                   style:
                       isMe ? TxtStyle.content14Orange : TxtStyle.content14Blue,
-                )
+                ),
+              // location != null
+              //     ? Row(
+              //         mainAxisAlignment: MainAxisAlignment.end,
+              //         children: [
+              //           const Icon(Icons.place, size: 17),
+              //           TextButton(
+              //             style: TextButton.styleFrom(
+              //               minimumSize: Size.zero,
+              //               padding: EdgeInsets.zero,
+              //               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //             ),
+              //             onPressed: () {
+              //               MapsLauncher.launchCoordinates(
+              //                   location!.location.latitude,
+              //                   location!.location.longitude);
+              //             },
+              //             child: const Text(
+              //               'Открыть в картах',
+              //             ),
+              //           ),
+              //           const Spacer(),
+              //         ],
+              //       )
+              //     : const SizedBox.shrink(),
             ],
           ),
         ),

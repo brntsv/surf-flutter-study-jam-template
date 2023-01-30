@@ -28,8 +28,7 @@ class FieldWithButton extends StatelessWidget {
       permission = await Geolocator.requestPermission();
     }
     final loc = await Geolocator.getCurrentPosition();
-    final gDto =
-        ChatGeolocationDto(latitude: loc.latitude, longitude: loc.longitude);
+    ChatGeolocationDto(latitude: loc.latitude, longitude: loc.longitude);
   }
 
   @override
