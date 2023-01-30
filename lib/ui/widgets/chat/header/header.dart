@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:surf_practice_chat_flutter/theme/theme.dart';
+import 'package:surf_practice_chat_flutter/ui/theme/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/header/line.dart';
 
 class HeaderBar extends StatefulWidget {

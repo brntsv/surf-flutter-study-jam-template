@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:surf_practice_chat_flutter/theme/theme.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:surf_practice_chat_flutter/data/chat/models/geolocation.dart';
+import 'package:surf_practice_chat_flutter/ui/theme/theme.dart';
 
 class FieldWithButton extends StatelessWidget {
   const FieldWithButton(
@@ -18,11 +20,38 @@ class FieldWithButton extends StatelessWidget {
   final IconData? icon;
   final bool messageInProgress;
 
+  Future<void> onLoadGeo() async {
+    LocationPermission permission;
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+    final loc = await Geolocator.getCurrentPosition();
+    final gDto =
+        ChatGeolocationDto(latitude: loc.latitude, longitude: loc.longitude);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
+          flex: 1,
+          child: Container(
+            decoration: const BoxDecoration(color: AppColors.msgBackBlue),
+            child: IconButton(
+                onPressed: () => onLoadGeo(),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                icon: const Icon(
+                  Icons.share_location_outlined,
+                  color: AppColors.iconBlue,
+                )),
+          ),
+        ),
+        Expanded(
+          flex: 7,
           child: TextField(
             onEditingComplete: onEditingComplete,
             controller: controller,

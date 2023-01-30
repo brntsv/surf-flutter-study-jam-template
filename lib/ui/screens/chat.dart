@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-import 'package:surf_practice_chat_flutter/theme/theme.dart';
+import 'package:surf_practice_chat_flutter/data/chat/models/geolocation.dart';
 import 'package:surf_practice_chat_flutter/ui/model/chat_model.dart';
+import 'package:surf_practice_chat_flutter/ui/theme/theme.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/chat_card.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/field_w_button.dart';
 import 'package:surf_practice_chat_flutter/ui/widgets/chat/header/header.dart';
@@ -27,39 +29,6 @@ class _ChatScreenState extends State<ChatScreen> {
       context.read<ChatModel>().getMessages();
     });
   }
-
-  @override
-  void didChangeDependencies() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // setState(() {
-      //   context.read<ChatModel>().getMessages();
-      // });
-    });
-    super.didChangeDependencies();
-  }
-
-  // Future<dynamic> getLocation() async {
-  //   setState(() {
-  //     showSpinner = true;
-  //   });
-  //   Location location = Location();
-  //   await location.getCurrentLocation();
-  //   print(location.latitude);
-  //   print(location.longitude);
-  //   ChatGeolocationDto geo = ChatGeolocationDto(
-  //       latitude: location.latitude, longitude: location.longitude);
-
-  //   try {
-  //     await widget.chatRepository.sendGeolocationMessage(
-  //       nickname: 'Don Kek',
-  //       location: geo,
-  //     );
-  //     // https://www.google.ru/maps/@${location.latitude},${location.longitude}
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   getMessages();
-  // }
 
   @override
   Widget build(BuildContext context) {
