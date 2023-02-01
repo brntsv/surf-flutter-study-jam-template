@@ -69,7 +69,8 @@ class FieldWithButton extends StatelessWidget {
                 icon: Icon(
                   icon,
                   color: AppColors.red,
-                ))
+                ),
+              )
       ],
     );
   }
